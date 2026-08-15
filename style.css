@@ -228,6 +228,7 @@ a{ color:inherit; }
   padding:0.8rem 0.8rem 1.3rem;
   box-shadow:0 18px 40px -22px rgba(62,42,48,0.35);
   transition:transform 0.35s ease, box-shadow 0.35s ease;
+  height: auto;
 }
 .polaroid:nth-child(odd){ transform:rotate(-2.2deg); }
 .polaroid:nth-child(even){ transform:rotate(2deg); }
