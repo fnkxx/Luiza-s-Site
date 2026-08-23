@@ -422,9 +422,31 @@ footer{
 @media (max-width:520px){
   .counter-grid{ gap:0.3rem; }
   .counter-card{ padding:2.6rem 1.2rem; }
+
+  .gallery-grid {
+    grid-template-columns: 1fr; /* Força uma coluna só */
+    gap: 2.5rem; /* Aumenta o espaço vertical entre elas para respirar mais */
+  }
+  
+  .polaroid {
+    max-width: 320px; /* Impede que o polaroid fique da largura inteira da tela */
+    margin: 0 auto; /* Centraliza perfeitamente o cartão */
+  }
+
+  .amores-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  .amor-card {
+    padding: 1.2rem 0.8rem;
+  }
+  .amor-card .t {
+    font-size: 1rem; /* Reduz a fonte da legenda do ícone */
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; }
   html{ scroll-behavior:auto; }
 }
+
