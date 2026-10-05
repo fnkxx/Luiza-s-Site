@@ -248,7 +248,12 @@ a{ color:inherit; }
   letter-spacing:0.04em;
   padding:1rem;
 }
-.polaroid .frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+.polaroid img {
+  width: 100%;
+  height: 250px; /* Define uma altura fixa para todas ficarem menores e iguais */
+  object-fit: cover; /* Corta as bordas que sobram sem amassar ou espalmar a fotografia */
+  display: block;
+}
 
 .polaroid .cap{
   margin-top:0.8rem;
@@ -257,6 +262,148 @@ a{ color:inherit; }
   font-style:italic;
   font-size:1.05rem;
   color:var(--plum);
+}
+
+/* ================= LINHA DO TEMPO (ALTERNADA) ================= */
+.timeline-section {
+  padding: 5rem 6vw 6rem;
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+.timeline-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* A linha central */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: var(--blush);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  margin-bottom: 3rem;
+}
+
+/* Os pequenos círculos na linha */
+.timeline-dot {
+  position: absolute;
+  top: 1.5rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--rose-deep);
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--rose);
+  z-index: 2;
+}
+
+/* Lado Esquerdo (Cartões Ímpares) */
+.timeline-item:nth-child(odd) {
+  left: 0;
+  padding-right: 2.5rem;
+  text-align: right;
+}
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -8px; /* Centra a bolinha exatamente sobre a linha central */
+}
+
+/* Lado Direito (Cartões Pares) */
+.timeline-item:nth-child(even) {
+  left: 50%;
+  padding-left: 2.5rem;
+  text-align: left;
+}
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -8px; /* Centra a bolinha exatamente sobre a linha central */
+}
+
+/* O cartão com o conteúdo */
+.timeline-content {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  box-shadow: 0 15px 35px -20px rgba(62,42,48,0.15);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.timeline-item:nth-child(odd) .timeline-content:hover {
+  transform: translateX(-6px);
+  border-color: var(--rose);
+}
+
+.timeline-item:nth-child(even) .timeline-content:hover {
+  transform: translateX(6px);
+  border-color: var(--rose);
+}
+
+.timeline-content h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--plum);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+  font-size: 0.95rem;
+  color: #7a5c62;
+  line-height: 1.5;
+}
+
+.timeline-date {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+/* ---- RESPONSIVIDADE: Volta para a esquerda em telemóveis ---- */
+@media (max-width: 768px) {
+  .timeline-container::before {
+    left: 7px;
+    transform: none;
+  }
+  .timeline-item {
+    width: 100%;
+    padding-left: 2.2rem !important;
+    padding-right: 0 !important;
+    left: 0 !important;
+    text-align: left !important;
+  }
+  .timeline-dot {
+    left: -1px !important;
+    right: auto !important;
+    top: 0.3rem; /* Sobe a bolinha para alinhar melhor no telemóvel */
+  }
+  .timeline-item:nth-child(odd) .timeline-content:hover,
+  .timeline-item:nth-child(even) .timeline-content:hover {
+    transform: translateX(6px); /* Remove o movimento para a esquerda que existia nos ímpares */
+  }
+
+  .closing .mensagem-final {
+  max-width: 600px;
+  margin: 1.5rem auto 1.5rem;
+  font-size: 1.1rem;
+  color: var(--plum);
+  line-height: 1.6;
+  text-align: center !important;
+}
 }
 
 /* ---------- COISAS QUE ELA AMA ---------- */
@@ -311,6 +458,8 @@ a{ color:inherit; }
   font-style:italic;
   color:#8a6a70;
 }
+
+
 
 /* ---------- BOTAO BRINCALHAO ---------- */
 .fun-section{
@@ -419,18 +568,32 @@ footer{
   color:#a08186;
 }
 
+
 @media (max-width:520px){
   .counter-grid{ gap:0.3rem; }
   .counter-card{ padding:2.6rem 1.2rem; }
 
+  /* Força duas colunas na galeria e diminui o espaço entre elas */
   .gallery-grid {
-    grid-template-columns: 1fr; /* Força uma coluna só */
-    gap: 2.5rem; /* Aumenta o espaço vertical entre elas para respirar mais */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem; 
   }
-  
+
+  /* Ajusta o tamanho da bordinha branca do polaroid */
   .polaroid {
-    max-width: 320px; /* Impede que o polaroid fique da largura inteira da tela */
-    margin: 0 auto; /* Centraliza perfeitamente o cartão */
+    padding: 0.5rem 0.5rem 0.8rem; 
+  }
+
+  /* Diminui a fonte da legenda para não quebrar a linha */
+  .polaroid .cap {
+    font-size: 0.85rem; 
+    margin-top: 0.5rem;
+  }
+
+  /* Deixa as fotos proporcionais e menorzinhas (formato quadradinho) */
+  .polaroid img {
+    height: 160px; /* Ajuste esse valor se quiser elas mais altas ou mais baixas */
+    object-fit: cover;
   }
 
   .amores-grid {
